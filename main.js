@@ -1,17 +1,26 @@
 async function getCountryInfo() {
     const value = document.getElementById('search').value;
+    //disable the button while we are fetching the country data
     document.getElementById('button').disabled = true;
     const countryData = await fetchCountryData(value);
+    //when countryData has been fetched we re-enable the button again
     document.querySelector('button').disabled = false;
 
+    //show the error or HTML country data
     if (countryData) {
+        //clean the HTML and repopulate it
         prepareCountryHTML();
         populateCountryHTML(countryData);
     } else {
-        generateError();
+        showError();
     }
 }
 
+/**
+ * Fetches the country data
+ * @param {string} country 
+ * @returns {object}|void
+ */
 async function fetchCountryData(country) {
     let response = {};
     try {
@@ -37,41 +46,46 @@ function prepareCountryHTML() {
 }
 
 /**
- * 
- * @param object data 
+ * Populate the front end with the fetched data
+ * @param {object} data 
  */
 function populateCountryHTML(data) {
     //get data
-    const currency = getCurrencyText(data.currencies);
-    const language = getLanguageText(data.languages);
-    //get base nodes
+    const currency = generateCurrencyText(data.currencies);
+    const language = generateLanguageText(data.languages);
+    //get and create base nodes
     const country = document.getElementById('countryData');
     const imageWrapper = document.createElement('div');
     imageWrapper.setAttribute('id', 'imageWrapper');
     country.appendChild(imageWrapper);
 
+    /*insert data into nodes(childs) upon the base nodes(parents) */
+    //we generate the country flag
     const countryFlag = document.createElement('IMG');
     countryFlag.setAttribute('src', data.flag);
     countryFlag.setAttribute('width', '100px');
     imageWrapper.appendChild(countryFlag);
 
+    //we generate the country name
     const countryName = document.createElement('h1')
     countryName.textContent = data.name;
     imageWrapper.appendChild(countryName);
 
-    const displayCountryInfo = document.createElement('p')
-    displayCountryInfo.textContent = `The capital is ${data.capital} ${currency}`;
-    country.appendChild(displayCountryInfo);
-
-
+    //we generate the country info (topografy, population)
     const countryInfo = document.createElement('p')
-    countryInfo.textContent = `${data.name} is situated in ${data.subregion}. It has a population of ${data.population} people`;
+    countryInfo.textContent = `${data.name} is situated in ${data.subregion}. It has a population of ${data.population} people.`;
     country.appendChild(countryInfo)
+
+    //we generate the capital name and the currencies being used
+    const displayCountryInfo = document.createElement('p')
+    displayCountryInfo.textContent = `The capital is ${data.capital} and ${currency}`;
+    country.appendChild(displayCountryInfo);
 
     const countryLanguage = document.createElement('p')
     countryLanguage.textContent = language;
     country.appendChild(countryLanguage)
 
+    //we create a link to the wikipedia
     const countryWiki = document.createElement('a')
     countryWiki.textContent = `More info about ${data.name} on Wikipedia`
     countryWiki.href = `https://en.wikipedia.org/wiki/${data.name}`
@@ -80,9 +94,15 @@ function populateCountryHTML(data) {
 }
 
 
-function getCurrencyText(currencies) {
+/**
+ * Creates a text string based on the currency in the given object
+ * 
+ * @param {object} currencies 
+ * @returns 
+ */
+function generateCurrencyText(currencies) {
     //we generate the base string
-    let currencyString = 'You can pay with ';
+    let currencyString = 'you can pay with ';
     for (let i = 0; i < currencies.length; i++) {
         if (i > 0) {
             //if we already had the first value of the array we add 'and'
@@ -97,20 +117,33 @@ function getCurrencyText(currencies) {
     return currencyString;
 }
 
-function getLanguageText(languages) {
-    let languageString = 'They speak ';
+/**
+ * Creates a text string based on the language in the given object
+ * 
+ * @param {object} languages 
+ * @returns 
+ */
+function generateLanguageText(languages) {
+    let languageString = 'They speak';
     for (let i = 0; i < languages.length; i++) {
-        if (i > 0) {
-            languageString += ' and '
+        if (languages.length > 1) {
+            if (i === languages.length - 1) {
+                languageString += ' and'
+            } else {
+                languageString += ', '
+            }
         }
-        languageString += languages[i].name;
+        languageString += ` ${languages[i].name}`;
     }
     languageString += '.';
 
     return languageString;
 }
 
-function generateError() {
+/**
+ * Shows a default error message.
+ */
+function showError() {
     const errElement = document.getElementById('err')
     errElement.innerHTML = 'The given country does not exist in our data, check your input and try again!';
     errElement.style.opacity = 1;

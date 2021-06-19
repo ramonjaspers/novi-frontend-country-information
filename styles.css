@@ -11,8 +11,7 @@ body {
 
 input {
   height: 32px;
-  width: 30%;
-  padding-right: 20px;
+  width: 50%;
   max-width: 500px;
   min-width: 175px;
   border-radius: 5px;
@@ -39,14 +38,13 @@ input {
     "Lucida Sans", Arial, sans-serif;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   opacity: 0;
-  width: 40%;
+  width: 50%;
   min-width: 380px;
 }
 
 #imageWrapper {
   display: flex;
   flex-direction: row;
-  padding-bottom: 1em;
   border-bottom: solid rgb(92, 92, 92) 0.5px;
 }
 
