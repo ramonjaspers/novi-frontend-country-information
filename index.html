@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
+<head>
+    </style>
+    <meta charset="UTF-8">
+    <title>Country facts</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <h1>Let's search some country information</h1>
+    </div>
+    <div id="logoWrapper">
+        <img id="logo" src="/assets/spinningGlobe.png" alt="An image of a spinning globe" />
+    </div>
+    <div id="searchContainer">
+        <input id="search" type="text" placeholder="The Netherlands" />
+        <button id="button" type="button" onclick="getCountryInfo(this)">
+            SEARCH
+        </button>
+    </div>
+    <h3 id="err"></h3>
+    <div id="countryWrapper">
+        <div id="countryData"></div>
+    </div>
 </body>
+
 </html>
