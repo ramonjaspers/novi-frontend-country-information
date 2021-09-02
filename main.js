@@ -1,19 +1,23 @@
+/**
+ * Flow handler
+ */
 async function getCountryInfo() {
     const value = document.getElementById('search').value;
     //disable the button while we are fetching the country data
     document.getElementById('button').disabled = true;
     const countryData = await fetchCountryData(value);
-    //when countryData has been fetched we re-enable the button again
-    document.querySelector('button').disabled = false;
-
+   
     //show the error or HTML country data
     if (countryData) {
-        //clean the HTML and repopulate it
-        prepareCountryHTML();
+        //clear the HTML data
+        await clearHTML();
+        //populate the HTML with retrieved data
         populateCountryHTML(countryData);
     } else {
         showError();
     }
+     //when countryData has been fetched and displayed we re-enable the button again
+     document.querySelector('button').disabled = false;
 }
 
 /**
@@ -27,7 +31,7 @@ async function fetchCountryData(country) {
         const url = `https://restcountries.eu/rest/v2/name/${country}`;
         response = await axios.get(url);
     } catch {
-        return;
+        return [];
     }
 
     return response.data[0];
@@ -36,7 +40,7 @@ async function fetchCountryData(country) {
 /**
  * Clears all country data
  */
-function prepareCountryHTML() {
+async function clearHTML() {
     const wrapper = document.getElementById('countryWrapper')
     wrapper.style.opacity = 0;
     document.getElementById('countryData').innerHTML = "";
