@@ -39,6 +39,8 @@ async function fetchCountryData(country) {
 
 /**
  * Clears all country data
+ * 
+ * @returns void
  */
 async function clearHTML() {
     const wrapper = document.getElementById('countryWrapper')
@@ -52,6 +54,7 @@ async function clearHTML() {
 /**
  * Populate the front end with the fetched data
  * @param {object} data 
+ * @returns void
  */
 function populateCountryHTML(data) {
     //get data
@@ -102,7 +105,7 @@ function populateCountryHTML(data) {
  * Creates a text string based on the currency in the given object
  * 
  * @param {object} currencies 
- * @returns 
+ * @returns {string} currencyString
  */
 function generateCurrencyText(currencies) {
     //we generate the base string
@@ -125,7 +128,7 @@ function generateCurrencyText(currencies) {
  * Creates a text string based on the language in the given object
  * 
  * @param {object} languages 
- * @returns 
+ * @returns {string} languageString
  */
 function generateLanguageText(languages) {
     let languageString = 'They speak';
@@ -146,6 +149,8 @@ function generateLanguageText(languages) {
 
 /**
  * Shows a default error message.
+ * 
+ * @returns void
  */
 function showError() {
     const errElement = document.getElementById('err')
