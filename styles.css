@@ -1,0 +1,82 @@
+body {
+  min-width: 380px;
+}
+
+#searchContainer,
+#header,
+#err,
+#logoWrapper {
+  text-align: center;
+}
+
+input {
+  height: 32px;
+  width: 50%;
+  max-width: 500px;
+  min-width: 175px;
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+#button {
+  background-color: #66ad57;
+  border-width: 1px;
+  border-radius: 0px 5px 5px 0px;
+  height: 36px;
+  width: 75px;
+  margin-left: -50px;
+}
+
+#button[disabled] {
+  background-color: #808080;
+}
+
+#countryWrapper {
+  margin: 20px auto;
+  padding: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  width: 50%;
+  min-width: 380px;
+}
+
+#imageWrapper {
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid rgb(92, 92, 92) 0.5px;
+}
+
+#imageWrapper > h1 {
+  font-family: "Brush Script MT", cursive;
+  font-size: 50px;
+  align-items: baseline;
+}
+
+#imageWrapper > img {
+  width: 150px;
+  height: 100px;
+  padding-right: 15px;
+}
+
+#countries {
+  border: "1px solid lightgray";
+  padding: "20px";
+}
+
+#logo {
+  align-content: center;
+  width: 25%;
+  height: 25%;
+  max-height: 325px;
+  max-width: 325px;
+  min-height: 200px;
+  min-width: 200px;
+}
+
+#err {
+  height: 30px;
+  color: red;
+  transition: 1s ease-out;
+}
